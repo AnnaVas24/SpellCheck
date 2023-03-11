@@ -32,16 +32,13 @@ struct ContentView: View {
                         Spacer()
                     }
                     .onTapGesture {
-                        var components = text.components(separatedBy: " ")
-                        components.removeLast()
-                        components.append(suggestion)
-                        text = components.joined(separator: " ")
+                        text = suggestion
                     }
                 }
             }
      
         }
-        .onChange(of: text, perform: { newValue in
+        .onChange(of: text) { _ in
             let misspelledRange = textChecker.rangeOfMisspelledWord(
                 in: text,
                 range: NSRange(0..<text.utf16.count),
@@ -57,7 +54,6 @@ struct ContentView: View {
                 )
             }
         }
-        )
         .padding()
     }
 }
